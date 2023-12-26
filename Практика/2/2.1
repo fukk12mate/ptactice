@@ -1,0 +1,22 @@
+﻿using System;
+
+ class Program
+    {
+         static void Main(string[] args)
+        {
+            int[] arrey = new int[100];
+            int num = 300;
+
+            for(int i = 0;i < arrey.Length;i++)
+            {
+                arrey[i] = num;
+                num -= 3;
+            }
+            Console.WriteLine("Убывающий порядок чисел в массиве: ");
+            for(int i = 0; i <  arrey.Length;i++)
+            {
+                Console.WriteLine(arrey[i]);
+            }
+        }
+
+    }

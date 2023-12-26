@@ -1,0 +1,38 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+
+class Program
+  {
+  public static int[] GenerateRandomNumbers(int start, int end, int lenght)
+  {
+    HashSet<int> numbers = new HashSet<int>();
+    Random rand = new Random();
+    while (numbers.Count < lenght)
+    {
+      int randomNumber = rand.Next(start, end +1);
+      numbers.Add(randomNumber);
+    }
+
+    int[] result = numbers.ToArray();
+    return result;
+  }
+  public static void Main (string[] args) 
+    {
+      int start = 0, end = 0, lenght = 0;
+      Console.WriteLine("Введите начало диапозона: ");
+      start = Convert.ToInt32(Console.ReadLine());
+      Console.WriteLine("Введите конец диапозона: ");
+      end = Convert.ToInt32(Console.ReadLine());
+      Console.WriteLine("Введите количество чисел в диапозоне: ");
+      lenght = Convert.ToInt32(Console.ReadLine());
+
+      int []randomNumbers = GenerateRandomNumbers(start, end, lenght);
+
+      Console.WriteLine("Сгенерированные числа:");
+      foreach (int num in randomNumbers)
+      {
+          Console.Write(num + " "); 
+      }
+    }
+}

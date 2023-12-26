@@ -1,0 +1,91 @@
+﻿using System;
+using System.IO;
+
+class Program
+{
+    public static void Main(string[] args)
+    {
+        Random random = new Random();
+        string numsTask3 = "numsTask3.txt";
+
+        try
+        {
+            Console.Write("Введите количество чисел: ");
+            int count = int.Parse(Console.ReadLine());
+
+            using (StreamWriter writer = new StreamWriter(numsTask3))
+            {
+                for (int i = 0; i < count; ++i)
+                {
+                    int randomNumber = random.Next(1, 100);
+                    writer.Write(randomNumber);
+                    if (i < count - 1)
+                    {
+                        writer.Write(" ");
+                    }
+                }
+            }
+
+            string[] numbersString;
+            using (StreamReader reader = new StreamReader(numsTask3))
+            {
+                string line = reader.ReadLine();
+                numbersString = line.Split(" ");
+
+                Console.WriteLine("Числа из файла:");
+
+                for (int i = 0; i < count; ++i)
+                {
+                    Console.Write(numbersString[i]);
+                    if (i < count - 1)
+                    {
+                        Console.Write(" ");
+                    }
+                }
+                Console.WriteLine();
+            }
+
+            int[] numbersInt = new int[count];
+            for (int i = 0; i < numbersString.Length; ++i)
+            {
+                numbersInt[i] = int.Parse(numbersString[i]);
+            }
+
+            int max = 0, min = 0;
+            for (int i = 1; i < numbersInt.Length; i++)
+            {
+                if (numbersInt[min] > numbersInt[i])
+                {
+                    min = i;
+                }
+
+                if (numbersInt[max] < numbersInt[i])
+                {
+                    max = i;
+                }
+            }
+
+            int sum = 0;
+            for (int i = min; i <= max; i++)
+            {
+                sum += numbersInt[i];
+            }
+
+            Console.WriteLine("Среднее арифметическое элементов, расположенных между минимальным и максимальным: " + (sum / (max - min)));
+        }
+        catch (FileNotFoundException)
+        {
+            Console.WriteLine("Файл не найден");
+        }
+        catch (IOException)
+        {
+            Console.WriteLine("Ошибка чтения файла или записи в файл");
+        }
+        finally
+        {
+            Console.WriteLine("\nНажмите любую клавишу для завершения программы");
+            Console.ReadKey();
+            File.Delete(numsTask3);
+        }
+    }
+}

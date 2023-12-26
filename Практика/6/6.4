@@ -1,0 +1,30 @@
+﻿using System;
+
+class Program 
+{
+  public static void Main() 
+  {
+    Console.Write("Введите положительное число: ");
+    int n = int.Parse(Console.ReadLine());
+
+    if (n < 0)
+    {
+      Console.WriteLine("Некорректный ввод");
+      return;
+    }
+
+    int sum = 0;
+    Console.WriteLine("Введите положительные числа (для завершения введите отрицательное): ");
+
+    int num = 1;
+    while (num > 0)
+    {
+      num = int.Parse(Console.ReadLine());
+      if (num % n == 0)
+      {
+        sum += num;
+      }
+    }
+      Console.WriteLine($"Сумма чисел, делящихся на {n}, равна {sum}");
+  }
+}

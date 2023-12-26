@@ -1,0 +1,59 @@
+﻿using System;
+using System.IO;
+using System.Collections.Generic;
+
+class Program 
+{
+  public static void Main (string[] args) 
+  {
+    string nums = "Task2.txt";
+    int n = 0;
+    Random rand = new Random();
+
+    try
+    {
+        Console.WriteLine ("Введите количества чисел в строке:");
+        n = int.Parse(Console.ReadLine());
+        int[] numbersArray = new int[n]; 
+        for(int i = 0; i < numbersArray.Length; ++i)
+        {
+          numbersArray[i] = rand.Next(-100, 100);
+        }
+        string stringNumbers = string.Join(" ", numbersArray);
+        using (StreamWriter writer = new StreamWriter(nums))
+        {
+          writer.WriteLine(stringNumbers); 
+        }
+        List<double> numbersList = new List<double>(); 
+        using (StreamReader reader = new StreamReader(nums)) 
+        {
+          string line = reader.ReadLine();
+          string[] numberStrings = line.Split(' ');
+          foreach (string numberString in numberStrings)
+          {
+            double number;
+            if (double.TryParse(numberString, out number))
+            {
+              numbersList.Add(number);
+            }
+          }
+        }
+        numbersList.Sort();
+        using (StreamWriter writer = new StreamWriter(nums))
+        {
+          foreach (double number in numbersList)
+          {
+            writer.Write(number.ToString() + " ");
+          }
+        }
+        string stringSortedNumbers = string.Join(";", numbersList); 
+        Console.WriteLine(stringSortedNumbers); 
+    }
+    finally 
+    {
+      Console.WriteLine("\nНажмите любую клавишу для завершения программы");
+      Console.ReadKey();
+      File.Delete(nums);
+    }
+  }
+}

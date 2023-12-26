@@ -1,0 +1,74 @@
+﻿using System;
+using System.IO;
+
+class Program 
+{
+  public static void Main (string[] args) 
+  {
+    Random random = new Random();
+    string numsTask3 = "numsTask3.txt";
+
+    Console.Write("Введите количество чисел: ");
+    int count = int.Parse(Console.ReadLine());
+
+    using (StreamWriter writer = new StreamWriter(numsTask3))
+    {
+      for (int i = 0; i < count; ++i)
+      {
+        int randomNumber = random.Next(-100, 100);
+        writer.Write(randomNumber);
+        if (i < count - 1)
+        {
+          writer.Write(" ");
+        }
+      }
+    }
+
+    string[] numbersString = new string[count];
+    using (StreamReader reader = new StreamReader(numsTask3))
+    {
+      string line = reader.ReadLine();
+      numbersString = line.Split(" ");
+
+      Console.WriteLine("Числа из файла:");
+
+      for (int i = 0; i < count; ++i)
+      {
+        Console.Write(numbersString[i]);
+        if (i < count - 1)
+        {
+          Console.Write(" ");
+        }
+      }
+      Console.WriteLine();
+    }
+
+      int[] numbersInt = new int[count];
+      for (int i = 0; i < numbersString.Length; ++i)
+      {
+        numbersInt[i] = int.Parse(numbersString[i]); 
+      } 
+
+      int min = 100;
+      int ind = 0;
+      for (int i = 0; i < numbersInt.Length; ++i)      
+      {
+        if (numbersInt[i] < min)          
+        {
+          min = numbersInt[i]; 
+          ind = i;
+        }
+      }
+      Console.WriteLine($"Минимальный элемент: {min}");
+
+      int sum = 0;
+      int countAfterMin = 0;
+      for (int i = ind + 1; i < numbersInt.Length; ++i) //до мин (-)
+      {
+        sum += numbersInt[i];
+        countAfterMin++; // кол-во слогаемых
+      }
+      double result = (double)sum / countAfterMin;
+      Console.WriteLine($"Среднее арифметическое: {result:f2}");
+  }
+}

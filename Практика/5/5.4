@@ -1,0 +1,88 @@
+﻿using System;
+using System.IO;
+using System.Collections.Generic;
+
+class Program
+{
+  public static void Main(string[] args)
+  {
+   string fileName = "Task2.txt";
+   Random rand = new Random();
+
+    try
+    {
+        Console.WriteLine("Введите количество чисел в строке:");
+        int n = int.Parse(Console.ReadLine()); 
+
+        // Генерируем случайные числа и записываем их в файл
+        List<int> numbersList = new List<int>();
+        using (StreamWriter writer = new StreamWriter(fileName))
+        {
+            for (int i = 0; i < n; i++)
+            {
+                int number = rand.Next(1, 10);
+                numbersList.Add(number);
+                writer.Write(number);
+                if (i < n - 1) writer.Write(" ");
+            }
+        }
+
+        // Считываем числа из файла в массив
+        string[] numbersString = File.ReadAllText(fileName).Split(' ');
+        int[] numbers = new int[n];
+      
+         for (int i = 0; i < n; i++)
+         {
+             numbers[i] = int.Parse(numbersString[i]);
+         }
+
+        Console.WriteLine("Числа из файла:");
+
+        foreach (int number in numbers)
+        {
+            Console.Write(number + " ");
+        }
+
+        // Находим максимальное число
+        int maxNumber = int.MinValue;
+        foreach (int number in numbers)
+        {
+            if (number > maxNumber)
+            {
+                maxNumber = number;
+            }
+        }
+
+        // Вычисляем сумму элементов, отличающихся от максимального на 1
+        int sum = 0;
+        foreach (int number in numbers)
+        {
+            if (Math.Abs(number - maxNumber) == 1)
+            {
+                sum += number;
+            }
+        }
+
+      Console.WriteLine("Сумма элементов, отличающихся от максимального на 1: " + sum);
+    }
+    catch (FileNotFoundException)
+    {
+        Console.WriteLine("Файл не найден");
+    }
+    catch (IOException)
+    {
+        Console.WriteLine("Ошибка чтения файла или записи в файл");
+    }
+    finally 
+    {
+        Console.WriteLine("\nНажмите любую клавишу для завершения программы");
+        Console.ReadKey();
+        File.Delete(fileName);
+    }
+  }
+}
+
+
+
+
+

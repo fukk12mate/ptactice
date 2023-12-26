@@ -1,0 +1,79 @@
+﻿using System;
+using System.IO;
+using System.Collections.Generic;
+
+class Program 
+{
+    public static void Main (string[] args) 
+    {
+        string nums = "Task3.txt";
+        int n = 0;
+        Random rand = new Random();
+
+        try
+        {
+            Console.WriteLine("Введите количество чисел в строке:");
+            n = int.Parse(Console.ReadLine());
+            int[] numbersArray = new int[n]; 
+
+            for(int i = 0; i < numbersArray.Length; ++i)
+            {
+                numbersArray[i] = rand.Next(0, 100);
+            }
+
+            string stringNumbers = string.Join(" ", numbersArray);
+            using (StreamWriter writer = new StreamWriter(nums))
+            {
+                writer.WriteLine(stringNumbers); 
+            }
+
+            List<int> numbersList = new List<int>(); 
+
+            using (StreamReader reader = new StreamReader(nums)) 
+            {
+                string line = reader.ReadLine();
+                string[] numberStrings = line.Split(' ');
+                int[] numbers = Array.ConvertAll(numberStrings, int.Parse);
+
+                int min = int.MaxValue;
+                int max = int.MinValue;
+
+                foreach (int num in numbers)
+                {
+                    if (num == 0)
+                    {
+                        break;
+                    }
+
+                    if (num < min)
+                    {
+                        min = num;
+                    }
+
+                    if (num > max)
+                    {
+                        max = num;
+                    }
+                }
+
+                if (min == int.MaxValue || max == int.MinValue)
+                {
+                    Console.WriteLine("Не найдено ни одного ненулевого элемента до появления 0");
+                }
+                else
+                {
+                    double ratio = Convert.ToDouble(min) / Convert.ToDouble(max);
+                    Console.WriteLine(ratio);
+                }
+            }
+        }
+        finally 
+        {
+           Console.WriteLine("\nНажмите любую клавишу для завершения программы");
+           Console.ReadKey();
+          File.Delete(nums);
+       }
+    }
+}
+  
+

@@ -1,0 +1,19 @@
+﻿using System;
+
+class Program
+{
+    static void Main()
+    {
+        Console.WriteLine("Введите строку:");
+        string input = Console.ReadLine();
+
+        string[] words = input.Split(new char[] {' ', ',', '.', '!', '?'}, StringSplitOptions.RemoveEmptyEntries);// включать или исключать пустые строки в результирующем массиве после разделения исходной строки. 
+
+        int wordCount = words.Length;
+
+        string result = "Start " + input + " End";
+
+        Console.WriteLine("Количество слов: " + wordCount);
+        Console.WriteLine("Результирующая строка: " + result);
+    }
+}

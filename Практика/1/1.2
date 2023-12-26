@@ -1,0 +1,31 @@
+﻿using System;
+using System.Collections.Generic;
+class Program
+{
+    static void Main(string[] args)
+   {
+        List<int> numbers = new List<int>();// это лист. прикол неограничен.Создание экземпляра списка numbers типа List, который представляет собой динамический массив элементов типа int.
+        int a = 0;//Объявление и инициализация переменной a со значением 0.
+        do//Начало цикла do-while, который будет выполняться, пока значение переменной a не равно 0.
+        {
+            Console.WriteLine("Введите число(введите ноль для остановки): ");
+            a = Convert.ToInt32(Console.ReadLine());// целое число
+            if (a != 0) 
+            {
+                numbers.Add(a);
+            }
+        } while (a != 0);
+        int sum = 0;
+        int product = 1;
+        foreach (int i in numbers)//Итерация по всем элементам списка numbers с помощью foreach.На каждой итерации добавление значения текущего элемента списка к переменной sum.
+        {
+          sum += i;// накапливает.На каждой итерации добавление значения текущего элемента списка к переменной sum.
+          product *= i;
+        }
+        double average = 0;
+        average = sum / numbers.Count;//подсчет кол-ва элементов в листе
+        Console.WriteLine($"сумма всех чисел: {sum} ");
+        Console.WriteLine($"произведение всех чисел: {product} ");
+        Console.WriteLine($"среднее арифметическое: {average} ");
+    }
+}
